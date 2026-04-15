@@ -36,6 +36,6 @@ def initiate_payment_session(
         ussd_string=payload.ussd_string,
         tel_uri=payload.tel_uri,
         user_latitude=latitude,
-        user_logitude=longitude,
+        user_longitude=longitude,
     )
     return session

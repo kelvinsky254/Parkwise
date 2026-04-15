@@ -45,10 +45,10 @@ never needs to know how long you have been parked. The operator already knows.
 
 ## Architecture
 
-**Backend**: Django 5 + Django REST Framework  
+**Backend**: Django 5.1 + Django REST Framework  
 **Auth**: JWT via SimpleJWT  
-**Database**: PostgreSQL  
-**Cache / broker**: Redis + Celery (for future background tasks)  
+**Database**: PostgreSQL 16  
+**Cache / broker**: Redis 7 + Celery  
 **Containerisation**: Docker + docker-compose  
 **CI**: GitHub Actions  
 
@@ -69,7 +69,7 @@ specific USSD chain string. The adapter class is stored as a dotted Python
 path in the database (`Vendor.adapter_class`), loaded dynamically at runtime.
 
 Adding a new operator requires:
-1. One new adapter file in `apps/vendors/adapters/`
+1. One new adapter file in `vendors/adapters/`
 2. One new `Vendor` row in the database
 
 No changes to existing code.
@@ -132,9 +132,9 @@ locations, and the database is updated when operators change.
 | POST | `/api/v1/auth/register/` | Create account |
 | POST | `/api/v1/auth/token/` | Obtain JWT access + refresh tokens |
 | POST | `/api/v1/auth/token/refresh/` | Refresh access token |
-| GET | `/api/v1/auth/profile/` | Get / update profile |
-| GET POST | `/api/v1/auth/vehicles/` | List vehicles / add vehicle |
-| GET PATCH DELETE | `/api/v1/auth/vehicles/<id>/` | Manage a vehicle |
+| GET PATCH | `/api/v1/users/profile/` | Get / update profile |
+| GET POST | `/api/v1/users/vehicles/` | List vehicles / add vehicle |
+| GET PATCH DELETE | `/api/v1/users/vehicles/<id>/` | Manage a vehicle |
 | GET | `/api/v1/locations/nearby/?lat=&lng=` | Nearest lots to GPS coordinates |
 | POST | `/api/v1/payments/initiate/` | Build USSD string for a lot + vehicle |
 | GET | `/api/v1/payments/sessions/` | User's payment session history |
@@ -147,12 +147,13 @@ locations, and the database is updated when operators change.
 ```bash
 # 1. Clone and set up environment
 cp .env.example .env
+# Edit .env with your local values
 
 # 2. Start backing services
 docker-compose up -d db redis
 
 # 3. Install dependencies
-pip install -r requirements/development.txt
+pip install -r requirements/dev.txt
 
 # 4. Run migrations
 python manage.py migrate
@@ -165,6 +166,12 @@ python manage.py createsuperuser
 
 # 7. Start the server
 python manage.py runserver
+```
+
+Or run everything via Docker:
+
+```bash
+docker-compose up --build
 ```
 
 ---
@@ -198,15 +205,16 @@ flow. Operator APIs are not publicly available.
 
 | Area | Status |
 |------|--------|
-| Backend scaffold | Done |
-| Data models + migrations | Done |
-| USSD adapter pattern | Done |
-| Location nearest-lot service | Done |
-| Payment session orchestration | Done |
-| DRF API endpoints | Done |
-| Docker + docker-compose | Done |
-| GitHub Actions CI | Done |
-| Initial vendor fixtures | Done (sandbox templates) |
-| Frontend | In progress |
-| Live USSD template verification | Pending (requires manual testing) |
-| Lot database (Nairobi) | Pending (manual curation) |
+| Backend scaffold | ✅ Done |
+| Settings split (base / dev / prod) | ✅ Done |
+| Docker + docker-compose | ✅ Done |
+| GitHub Actions CI | ✅ Done |
+| Data models + migrations | 🔄 In progress |
+| DRF serializers + API endpoints | 🔄 In progress |
+| USSD adapter pattern | 🔄 In progress |
+| Location nearest-lot service | ⬜ Not started |
+| Payment session orchestration | ⬜ Not started |
+| Initial vendor fixtures | ⬜ Not started |
+| Frontend | ⬜ Not started |
+| Live USSD template verification | ⏳ Pending (requires manual testing) |
+| Lot database (Nairobi) | ⏳ Pending (manual curation) |
