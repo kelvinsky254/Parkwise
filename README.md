@@ -119,12 +119,13 @@ USSD chain templates must be confirmed by manually testing each operator's flow.
 | Data models — all 5 apps | ✅ Done |
 | Migrations | ✅ Done |
 | USSD vendor adapter pattern | ✅ Done |
-| Location nearest-lot service | ✅ Done |
+| Location nearest-lot service (Haversine) | ✅ Done |
 | Payment session orchestration | ✅ Done |
-| DRF API endpoints | ✅ Done |
 | Docker + docker-compose | ✅ Done (PostgreSQL on port 5433) |
 | GitHub Actions CI | ✅ Done |
-| Initial vendor fixtures | ✅ Done (sandbox templates) |
-| Frontend | 🔄 In progress |
+| DRF serializers + API endpoints | ⬜ Not started |
+| Tests (target 70% coverage) | ⬜ Not started |
+| Initial vendor fixtures | ⬜ Not started |
+| Frontend (3-screen mobile UI) | ⬜ Not started |
 | Live USSD template verification | ⏳ Pending (requires manual testing) |
 | Nairobi lot database | ⏳ Pending (manual curation) |
