@@ -78,10 +78,10 @@ class UserSavedLot(TimeStampedModel):
     class Meta:
         db_table = "payments_user_saved_lot"
         unique_together = ("user", "lot")
-        ordering = ["-visit_count", "-last_visted"]
+        ordering = ["-visit_count", "-last_visited_at"]
 
 
-    def __init__(self):
+    def __str__(self):
         return f"{self.user.email} -> {self.lot.name}"
 
 

@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from core.models import TimeStampedModel
 
@@ -36,7 +37,7 @@ class LotVendorMapping(TimeStampedModel):
     notes = models.TextField(blank=True)
 
     class Meta:
-        db_name = "locations_lot_vendor_mapping"
+        db_table = "locations_lot_vendor_mapping"
         ordering = ["-effective_from"]
 
     def __str__(self):

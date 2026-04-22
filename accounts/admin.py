@@ -7,8 +7,8 @@ class UserAdmin(BaseUserAdmin):
     list_display = ("email", "first_name", "last_name", "phone_number", "is_active", "is_staff")
     search_fields = ("email", "first_name", "last_name", "phone_number")
     list_filter = ("is_active", "is_staff")
-    ordering = ("email")
-    readonly_fields = ("id", "date_joined", "updated_on")
+    ordering = ("email",)
+    readonly_fields = ("id", "date_joined", "updated_at")
 
     fieldsets = (
         (None, {"fields": ("id", "email", "password")}),
