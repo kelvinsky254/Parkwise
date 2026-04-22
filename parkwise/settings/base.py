@@ -1,5 +1,5 @@
 """
-Base settings for Parkwise- shared across all environments.
+Base settings for Parkwise — shared across all environments.
 12-factor compliant: all secrets and environment-specific values come from env vars.
 """
 
@@ -9,16 +9,15 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# -------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Security
-# -------------------------------------------------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "changeme-in-env")
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 
-# --------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Applications
-# --------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,10 +45,9 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-# -----------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Middleware
-# -----------------------------------------------------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -64,16 +62,15 @@ MIDDLEWARE = [
 ROOT_URLCONF = "parkwise.urls"
 WSGI_APPLICATION = "parkwise.wsgi.application"
 
-# -----------------------------------------------------------------------------------------------------------
-# Template
-# -----------------------------------------------------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
+# Templates
+# ---------------------------------------------------------------------------
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
-        "OPTIONS" : {
+        "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -82,13 +79,11 @@ TEMPLATES = [
             ],
         },
     },
-
 ]
 
-# -----------------------------------------------------------------------------------------------------------
-# Database - PostgreSQL via env vars
-# -----------------------------------------------------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
+# Database — PostgreSQL via env vars
+# ---------------------------------------------------------------------------
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -96,18 +91,18 @@ DATABASES = {
         "USER": os.environ.get("DB_USER", "parkwise"),
         "PASSWORD": os.environ.get("DB_PASSWORD", "parkwise"),
         "HOST": os.environ.get("DB_HOST", "localhost"),
-        "PORT": os.environ.get("DB_PORT", "5432")
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 
-# -----------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Custom user model
-# -----------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 AUTH_USER_MODEL = "accounts.User"
 
-# -----------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Password validation
-# -----------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -173,16 +168,6 @@ SIMPLE_JWT = {
 }
 
 # ---------------------------------------------------------------------------
-# Celery
-# ---------------------------------------------------------------------------
-CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = TIME_ZONE
-
-# ---------------------------------------------------------------------------
 # CORS
 # ---------------------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
@@ -222,9 +207,3 @@ LOGGING = {
         },
     },
 }
-
-
-
-
-
-
