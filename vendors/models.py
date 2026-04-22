@@ -1,7 +1,11 @@
+import uuid
 from django.db import models
+from core.models import TimeStampedModel
 
 
-class Vendor(models.Model):
+
+class Vendor(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=50, unique=True)
     ussd_shortcode = models.CharField(max_length=20)
@@ -16,8 +20,6 @@ class Vendor(models.Model):
     config = models.JSONField(default=dict, blank=True)
     sandbox_mode = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "vendors_vendor"
