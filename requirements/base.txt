@@ -1,0 +1,13 @@
+Django==5.0
+asgiref==3.11.0
+sqlparse==0.5.5
+psycopg2-binary==2.9.11
+dj-database-url==3.1.0
+django-leaflet==0.33.0
+python-decouple==3.8
+whitenoise==6.12.0
+pillow==12.1.0
+requests==2.33.1
+tzdata==2025.3
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
